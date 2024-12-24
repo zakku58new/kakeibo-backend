@@ -113,6 +113,7 @@ public class KakeiboTestController {
 			data.setWaterBill(dataTest.getWaterBill());
 			data.setFoodExpense(dataTest.getFoodExpense());
 			data.setRentalCost(dataTest.getRentalCost());
+//			即座にデータベースに反映させたい場合はsaveAndFlushを使用する。
 			repository.saveAndFlush(data);
 		}
 		
@@ -200,4 +201,11 @@ public class KakeiboTestController {
 		}
 	}
 	
+//	クレカ詳細更新
+	@RequestMapping("/update/creditDetail")
+	public void updateCreditDetail(@RequestBody Iterable<CreditDataDetail> creditDetails) {
+//		System.out.println(creditDetails);
+//		クレカ詳細更新実施
+		creditDetailRepository.saveAllAndFlush(creditDetails);
+	}
 }
