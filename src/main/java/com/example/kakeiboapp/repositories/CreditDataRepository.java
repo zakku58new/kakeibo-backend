@@ -9,5 +9,8 @@ import com.example.kakeiboapp.CreditData;
 public interface CreditDataRepository extends JpaRepository<CreditData, Long> {
 
 	@Query("SELECT d FROM CreditData d WHERE d.creditYear = :year AND d.creditMonth = :month")
-	Iterable<CreditData> findByMonthContaining(@Param("year") Integer year, @Param("month") Integer month);
+//	Iterable<CreditData> findByMonthContaining(@Param("year") Integer year, @Param("month") Integer month);
+	
+//	取得されるレコードは１レコードの想定
+	CreditData findByMonthContaining(@Param("year") Integer year, @Param("month") Integer month);
 }

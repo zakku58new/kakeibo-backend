@@ -14,5 +14,6 @@ import com.example.kakeiboapp.DataTest;
 public interface DataTestRepository extends JpaRepository<DataTest, Long> {
 
 	@Query("SELECT d FROM DataTest d WHERE d.dateYear = :year AND d.dateMonth = :month")
-	Iterable<DataTest> findByMonthContaining(@Param("year") Integer year, @Param("month") Integer month);
+//	Iterable<DataTest> findByMonthContaining(@Param("year") Integer year, @Param("month") Integer month);
+	DataTest findByMonthContaining(@Param("year") Integer year, @Param("month") Integer month);
 }
