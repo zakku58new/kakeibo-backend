@@ -1,6 +1,9 @@
 package com.example.kakeiboapp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +30,7 @@ public class KakeiboTestController {
 	
 //	メニュー表示用検索
 	@RequestMapping("/index")
-	public Iterable<DataTest> index() {
+	public List<DataTest> index() {
 //		DataTest result = new DataTest();
 //		result.setMonth(11);
 //		result.setIncome(222);
@@ -39,7 +42,9 @@ public class KakeiboTestController {
 //		result.setRentalCost(888);
 //		repository.saveAndFlush(result);
 		
-		Iterable<DataTest> list = repository.findAll();
+//		Iterable<DataTest> list = repository.findAll();
+//		年と月項目の降順でソートして全件取得する。
+		List<DataTest> list = repository.findAll(Sort.by(Sort.Direction.DESC, "dateYear").and(Sort.by(Sort.Direction.DESC, "dateMonth")));
 		return list;
 	}
 	
