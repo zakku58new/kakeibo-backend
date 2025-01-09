@@ -101,24 +101,34 @@ public class KakeiboTestService {
 			creditRepository.saveAndFlush(data);
 		}
 	}
-	
+		
 //	クレカ詳細登録
-	public void regisCreditDetail(CreditDataDetail creditDetail) {
+	public void regisCreditDetail(Iterable<CreditDataDetail> creditDetail) {
 //		クレカ詳細情報登録
-		creditDetailRepository.saveAndFlush(creditDetail);
+		creditDetailRepository.saveAllAndFlush(creditDetail);
+		
+//		入力値：年
+		int year = creditDetail.iterator().next().getCreditDetailYear();
+//		入力値：月
+		int month = creditDetail.iterator().next().getCreditDetailMonth();
 		
 //		該当月のクレジットの合計情報の検索
-		CreditData list = creditRepository.findByMonthContaining(creditDetail.getCreditDetailYear(), creditDetail.getCreditDetailMonth());
+		CreditData list = creditRepository.findByMonthContaining(year, month);
 		
 		if (list == null) {
 //			テーブルにデータがない場合
+//			データ金額合計
+			int creditDetailSum = 0;
+			for (CreditDataDetail data : creditDetail) {
+				creditDetailSum = creditDetailSum + data.getAmount();
+			}
 //			データの新規登録
 			CreditData data = new CreditData();
-			data.setCreditYear(creditDetail.getCreditDetailYear());
-			data.setCreditMonth(creditDetail.getCreditDetailMonth());
-			data.setRCreditSum(creditDetail.getAmount());
+			data.setCreditYear(year);
+			data.setCreditMonth(month);
+			data.setRCreditSum(creditDetailSum);
 			data.setRCreditPoint(0);
-			data.setRCreditSumLast(creditDetail.getAmount());
+			data.setRCreditSumLast(creditDetailSum);
 			data.setMCreditSum(0);
 			data.setMCreditPoint(0);
 			data.setMCreditSumLast(0);
@@ -152,8 +162,13 @@ public class KakeiboTestService {
 //			}
 		} else {
 //			テーブルにデータがある場合
+//			データ金額合計
+			int creditDetailSum = 0;
+			for (CreditDataDetail data : creditDetail) {
+				creditDetailSum = creditDetailSum + data.getAmount();
+			}
 //			クレカ合計の数値を更新(DBから取得した値 + 新しく入力された値)
-			int sum = list.getRCreditSum() + creditDetail.getAmount();
+			int sum = list.getRCreditSum() + creditDetailSum;
 			int sumLast = 0;
 			if (list.getRCreditPoint()==null) {
 //				楽天ポイントが未登録の場合

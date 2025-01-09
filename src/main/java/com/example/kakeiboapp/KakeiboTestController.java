@@ -138,7 +138,7 @@ public class KakeiboTestController {
 	
 //	クレカ詳細登録
 	@RequestMapping("/regist/creditDetail")
-	public void registCreditDetail(@RequestBody CreditDataDetail creditDetail) {
+	public void registCreditDetail(@RequestBody Iterable<CreditDataDetail> creditDetail) {
 ////		クレカ詳細情報登録
 //		creditDetailRepository.saveAndFlush(creditDetail);
 //		
@@ -217,7 +217,6 @@ public class KakeiboTestController {
 //			data.setMCreditSumLast(list.getMCreditSumLast());
 //			creditRepository.saveAndFlush(data);
 //		}
-		
 		service.regisCreditDetail(creditDetail);
 	}
 	
