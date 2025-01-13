@@ -56,6 +56,27 @@ public class KakeiboTestService {
 		if (list == null) {
 //			テーブルにデータがない場合
 //			データの新規登録
+			if (null == dataTest.getIncome()) {
+				dataTest.setIncome(0);
+			}
+			if (null == dataTest.getBank()) {
+				dataTest.setBank(0);
+			}
+			if (null == dataTest.getElectricityBill()) {
+				dataTest.setElectricityBill(0);
+			}
+			if (null == dataTest.getGasBill()) {
+				dataTest.setGasBill(0);
+			}
+			if (null == dataTest.getWaterBill()) {
+				dataTest.setWaterBill(0);
+			}
+			if (null == dataTest.getFoodExpense()){
+				dataTest.setFoodExpense(0);
+			}
+			if (null == dataTest.getRentalCost()) {
+				dataTest.setRentalCost(0);
+			}
 			repository.saveAndFlush(dataTest);
 		} else {
 //			テーブルにデータがある場合
@@ -84,6 +105,23 @@ public class KakeiboTestService {
 		if (list == null) {
 //			テーブルにデータがない場合
 //			データの新規登録
+			if (null == creditData.getRCreditSum()) {
+				creditData.setRCreditSum(0);
+				creditData.setRCreditPoint(0);
+			}
+			if (null == creditData.getRCreditPoint()) {
+				creditData.setRCreditPoint(0);
+			}
+			if (null == creditData.getMCreditSum()) {
+				creditData.setMCreditSum(0);
+				creditData.setMCreditPoint(0);
+			}
+			if (null == creditData.getMCreditPoint()) {
+				creditData.setMCreditPoint(0);
+			}
+//			クレカ合計とポイントの差分を計算
+			creditData.setRCreditSumLast(creditData.getRCreditSum() - creditData.getRCreditPoint());
+			creditData.setMCreditSumLast(creditData.getMCreditSum() - creditData.getMCreditPoint());
 			creditRepository.saveAndFlush(creditData);
 		} else {
 //			テーブルにデータがある場合
