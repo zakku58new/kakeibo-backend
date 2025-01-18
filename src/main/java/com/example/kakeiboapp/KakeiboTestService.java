@@ -44,7 +44,7 @@ public class KakeiboTestService {
 	
 //	クレカ詳細検索
 	public Iterable<CreditDataDetail> getCreditDetail(Integer year, Integer month) {
-		Iterable<CreditDataDetail> list = creditDetailRepository.findByCreditDetailYearAndCreditDetailMonth(year, month);
+		Iterable<CreditDataDetail> list = creditDetailRepository.findByCreditDetailYearAndCreditDetailMonthOrderByCreditDateAsc(year, month);
 		return list;
 	}
 	

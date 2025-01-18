@@ -10,5 +10,5 @@ import com.example.kakeiboapp.CreditDataDetail;
 @Repository
 public interface CreditDataDetailRepository extends JpaRepository<CreditDataDetail, Long> {
 
-	public List<CreditDataDetail> findByCreditDetailYearAndCreditDetailMonth(Integer year, Integer month);
+	public List<CreditDataDetail> findByCreditDetailYearAndCreditDetailMonthOrderByCreditDateAsc(Integer year, Integer month);
 }
